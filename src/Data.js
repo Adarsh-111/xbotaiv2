@@ -39,6 +39,26 @@ export const sampleData = [
     question: "Hi, how are you",
     answer: "As an AI Language Model, I don't have feelings, but I'm ready to assist you!",
   },
+  {
+    id: 9,
+    question: "Hi, how are you?",
+    answer: "As an AI Language Model, I don't have feelings, but I'm ready to assist you!",
+  },
+  {
+    id: 10,
+    question: "What are RESTful APIs?",
+    answer: "RESTful APIs are designed around the REST (Representational State Transfer) architecture, which uses HTTP requests to access and manipulate data. They follow a stateless, client-server, cacheable communications protocol.",
+  },
+  {
+    id: 11,
+    question: "What is React?",
+    answer: "React is a JavaScript library for building user interfaces, maintained by Facebook. It allows developers to create reusable UI components and manage the state of their applications efficiently.",
+  },
+  {
+    id: 12,
+    question: "What is JavaScript?",
+    answer: "JavaScript is a lightweight, interpreted programming language with first-class functions. It is most well-known as the scripting language for Web pages.",
+  },
 ];
 
 export const getAIResponse = (question) => {

@@ -23,7 +23,7 @@ function Layout({ conversations, setConversations }) {
 
       <div className="main-content">
         <header className="top-bar">
-          Bot AI
+          <h1>Bot AI</h1>
         </header>
 
         <Routes>

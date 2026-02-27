@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function renderStars(rating) {
   return Array.from({ length: 5 }, (_, i) => (
     <span key={i} style={{ color: i < rating ? "#f5a623" : "#ddd" }}>
-      *
+      &#9733;
     </span>
   ));
 }
@@ -20,14 +20,16 @@ function formatDate(dateStr) {
 }
 
 export default function Historypage({ conversations }) {
-  const [filterRating, setFilterRating] = useState(0);
+  const [selectedId, setSelectedId] = useState(null);
 
-  const filtered = filterRating
-    ? conversations.filter((c) => c.rating === filterRating)
-    : conversations;
+  const selectedConv = selectedId
+    ? conversations.find((c) => c.id === selectedId)
+    : null;
+
+  const displayed = selectedConv ? [selectedConv] : conversations;
 
   const groups = {};
-  filtered.forEach((conv) => {
+  displayed.forEach((conv) => {
     const label = formatDate(conv.date);
     if (!groups[label]) groups[label] = [];
     groups[label].push(conv);
@@ -38,25 +40,29 @@ export default function Historypage({ conversations }) {
       <h2 className="history-title">Conversation History</h2>
 
       <div className="filter-bar">
-        <span className="filter-label">Filter by rating:</span>
+        <span className="filter-label">Conversations:</span>
         <button
-          className={`filter-btn ${filterRating === 0 ? "active" : ""}`}
-          onClick={() => setFilterRating(0)}
+          className={`filter-btn ${!selectedId ? "active" : ""}`}
+          onClick={() => setSelectedId(null)}
         >
           All
         </button>
-        {[1, 2, 3, 4, 5].map((r) => (
-          <button
-            key={r}
-            className={`filter-btn ${filterRating === r ? "active" : ""}`}
-            onClick={() => setFilterRating(r)}
-          >
-            {"*".repeat(r)}
-          </button>
-        ))}
+        {conversations.map((conv) => {
+          const firstUserMsg = conv.messages.find((m) => m.role === "user");
+          const label = firstUserMsg ? firstUserMsg.text : "Chat";
+          return (
+            <button
+              key={conv.id}
+              className={`filter-btn ${selectedId === conv.id ? "active" : ""}`}
+              onClick={() => setSelectedId(conv.id)}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
-      {filtered.length === 0 ? (
+      {displayed.length === 0 ? (
         <p
           style={{
             textAlign: "center",
