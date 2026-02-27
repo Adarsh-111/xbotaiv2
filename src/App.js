@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import Chatpage from "./Chatpage";
+import Historypage from "./Historypage";
 
-function App() {
+function Layout({ conversations, setConversations }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHistory = location.pathname === "/history";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="app-wrapper">
+      <aside className="sidebar">
+        <button
+          className="sidebar-btn new-chat"
+          onClick={() => navigate("/")}
         >
-          Learn React
-        </a>
-      </header>
+          <span className="sidebar-icon">🤖</span>
+          New Chat
+        </button>
+        <button
+          className={`sidebar-btn past-conv ${isHistory ? "active" : ""}`}
+          onClick={() => navigate("/history")}
+        >
+          Past Conversations
+        </button>
+      </aside>
+      <div className="main-content">
+        <div className="top-bar">
+          🤖 Bot AI
+        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Chatpage
+                conversations={conversations}
+                setConversations={setConversations}
+              />
+            }
+          />
+          <Route
+            path="/history"
+            element={<Historypage conversations={conversations} />}
+          />
+        </Routes>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  const [conversations, setConversations] = useState([]);
+
+  return (
+    <Router>
+      <Layout conversations={conversations} setConversations={setConversations} />
+    </Router>
+  );
+}
