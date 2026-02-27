@@ -3,14 +3,29 @@ import { getAIResponse } from "./Data";
 import Feedbackmodal from "./Feedbackmodal";
 
 const SUGGESTIONS = [
-  { title: "Hi, what is the weather", desc: "Get immediate AI generated response" },
-  { title: "Hi, what is my location?", desc: "Get immediate AI generated response" },
-  { title: "Hi, what is the temperature", desc: "Get immediate AI generated response" },
-  { title: "Hi, how are you", desc: "Get immediate AI generated response" },
+  {
+    title: "Hi, what is the weather",
+    desc: "Get immediate AI generated response",
+  },
+  {
+    title: "Hi, what is my location?",
+    desc: "Get immediate AI generated response",
+  },
+  {
+    title: "Hi, what is the temperature",
+    desc: "Get immediate AI generated response",
+  },
+  {
+    title: "Hi, how are you",
+    desc: "Get immediate AI generated response",
+  },
 ];
 
 function formatTime(date) {
-  return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 export default function Chatpage({ conversations, setConversations }) {
@@ -26,8 +41,9 @@ export default function Chatpage({ conversations, setConversations }) {
     }
   }, [messages]);
 
-  const handleAsk = (questionText) => {
-    const q = (questionText !== undefined ? questionText : input).trim();
+  const sendMessage = (questionText) => {
+    const q =
+      questionText !== undefined ? questionText.trim() : input.trim();
     if (!q) return;
     const now = new Date();
     const userMsg = {
@@ -61,7 +77,7 @@ export default function Chatpage({ conversations, setConversations }) {
   const handleFeedbackSubmit = ({ rating, feedback }) => {
     const conv = {
       id: Date.now(),
-      date: new Date(),
+      date: new Date().toISOString(),
       messages: messages.map((m) => ({
         ...m,
         reaction: reactions[m.id] || null,
@@ -77,7 +93,7 @@ export default function Chatpage({ conversations, setConversations }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAsk();
+    sendMessage();
   };
 
   return (
@@ -92,7 +108,7 @@ export default function Chatpage({ conversations, setConversations }) {
                 <div
                   key={i}
                   className="suggestion-card"
-                  onClick={() => handleAsk(s.title)}
+                  onClick={() => sendMessage(s.title)}
                 >
                   <strong>{s.title}</strong>
                   <span>{s.desc}</span>
@@ -105,7 +121,9 @@ export default function Chatpage({ conversations, setConversations }) {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`message ${msg.role === "user" ? "user-message" : "ai-message"}`}
+                className={`message ${
+                  msg.role === "user" ? "user-message" : "ai-message"
+                }`}
               >
                 <div className="msg-avatar">
                   {msg.role === "user" ? "🧑" : "🤖"}
@@ -119,14 +137,18 @@ export default function Chatpage({ conversations, setConversations }) {
                   {msg.role === "ai" && (
                     <div className="msg-actions">
                       <button
-                        className={`action-btn ${reactions[msg.id] === "like" ? "active" : ""}`}
+                        className={`action-btn ${
+                          reactions[msg.id] === "like" ? "active" : ""
+                        }`}
                         onClick={() => handleReaction(msg.id, "like")}
                         title="Like"
                       >
                         👍
                       </button>
                       <button
-                        className={`action-btn ${reactions[msg.id] === "dislike" ? "active" : ""}`}
+                        className={`action-btn ${
+                          reactions[msg.id] === "dislike" ? "active" : ""
+                        }`}
                         onClick={() => handleReaction(msg.id, "dislike")}
                         title="Dislike"
                       >
@@ -146,12 +168,16 @@ export default function Chatpage({ conversations, setConversations }) {
         <input
           className="chat-input"
           type="text"
-          placeholder="Message Bot AI…"
+          placeholder="Message Bot AI..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button className="btn-ask" type="submit">Ask</button>
-        <button className="btn-save" type="button" onClick={handleSave}>Save</button>
+        <button className="btn-ask" type="submit">
+          Ask
+        </button>
+        <button className="btn-save" type="button" onClick={handleSave}>
+          Save
+        </button>
       </form>
 
       {showModal && (

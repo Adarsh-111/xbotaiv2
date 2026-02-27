@@ -10,7 +10,6 @@
   --primary-dark: #5a4fa8;
   --bg-main: #f4f3fb;
   --bg-sidebar: #ffffff;
-  --bg-card: #ffffff;
   --bg-ai-msg: #f0eefa;
   --bg-user-msg: #ffffff;
   --text-primary: #1a1a2e;
@@ -37,7 +36,7 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 .sidebar {
   width: 220px;
   background: var(--bg-sidebar);
@@ -50,37 +49,38 @@ h1, h2, h3, h4, h5 {
   box-shadow: var(--shadow);
 }
 
-.sidebar-btn {
+/* Both nav links render as <a> tags — style them to look like buttons */
+.sidebar-link {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
   border-radius: 10px;
-  border: none;
   cursor: pointer;
   font-family: "Ubuntu", sans-serif;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s;
+  text-decoration: none;
 }
 
-.sidebar-btn.new-chat {
+.sidebar-link.new-chat-link {
   background: var(--primary);
   color: white;
 }
 
-.sidebar-btn.new-chat:hover {
+.sidebar-link.new-chat-link:hover {
   background: var(--primary-dark);
+  color: white;
 }
 
-.sidebar-btn.past-conv {
+.sidebar-link.past-conv-link {
   background: transparent;
   color: var(--primary);
   border: 2px solid var(--primary);
 }
 
-.sidebar-btn.past-conv:hover,
-.sidebar-btn.past-conv.active {
+.sidebar-link.past-conv-link:hover {
   background: var(--primary);
   color: white;
 }
@@ -89,14 +89,14 @@ h1, h2, h3, h4, h5 {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
 }
 
-/* Main content */
+/* ── Main content ── */
 .main-content {
   flex: 1;
   display: flex;
@@ -104,7 +104,7 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
 }
 
-.top-bar {
+header.top-bar {
   background: white;
   padding: 14px 24px;
   border-bottom: 1px solid var(--border);
@@ -117,17 +117,16 @@ h1, h2, h3, h4, h5 {
   gap: 10px;
 }
 
-/* Chat area */
+/* ── Chat container ── */
 .chat-container {
   flex: 1;
   overflow-y: auto;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
-/* Welcome screen */
+/* ── Welcome screen ── */
 .welcome-screen {
   flex: 1;
   display: flex;
@@ -194,12 +193,10 @@ h1, h2, h3, h4, h5 {
   color: var(--text-secondary);
 }
 
-/* Messages */
+/* ── Messages ── */
 .message-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin-bottom: 4px;
 }
 
 .message {
@@ -228,7 +225,6 @@ h1, h2, h3, h4, h5 {
   justify-content: center;
   font-size: 18px;
   flex-shrink: 0;
-  overflow: hidden;
 }
 
 .msg-content {
@@ -278,13 +274,14 @@ h1, h2, h3, h4, h5 {
   color: var(--text-secondary);
 }
 
-.action-btn:hover, .action-btn.active {
+.action-btn:hover,
+.action-btn.active {
   background: var(--primary);
   border-color: var(--primary);
   color: white;
 }
 
-/* Input bar */
+/* ── Input bar ── */
 .input-bar {
   padding: 16px 24px;
   background: white;
@@ -345,11 +342,11 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* Feedback modal */
+/* ── Feedback modal ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -363,7 +360,7 @@ h1, h2, h3, h4, h5 {
   padding: 28px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 20px 60px rgba(124,111,205,0.2);
+  box-shadow: 0 20px 60px rgba(124, 111, 205, 0.2);
 }
 
 .modal h3 {
@@ -440,7 +437,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
 }
 
-/* History page */
+/* ── History page ── */
 .history-container {
   flex: 1;
   overflow-y: auto;
@@ -475,7 +472,7 @@ h1, h2, h3, h4, h5 {
   display: flex;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .history-message:last-child {
@@ -512,7 +509,7 @@ h1, h2, h3, h4, h5 {
   color: #f5a623;
 }
 
-/* Filter bar */
+/* ── Filter bar ── */
 .filter-bar {
   display: flex;
   gap: 10px;
@@ -537,13 +534,14 @@ h1, h2, h3, h4, h5 {
   transition: all 0.2s;
 }
 
-.filter-btn.active, .filter-btn:hover {
+.filter-btn.active,
+.filter-btn:hover {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
 }
 
-/* Responsive */
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .app-wrapper {
     flex-direction: column;
@@ -574,7 +572,8 @@ h1, h2, h3, h4, h5 {
     gap: 6px;
   }
 
-  .btn-ask, .btn-save {
+  .btn-ask,
+  .btn-save {
     padding: 10px 14px;
     font-size: 13px;
   }

@@ -2,15 +2,21 @@ import React, { useState } from "react";
 
 function renderStars(rating) {
   return Array.from({ length: 5 }, (_, i) => (
-    <span key={i} style={{ color: i < rating ? "#f5a623" : "#ddd" }}>★</span>
+    <span key={i} style={{ color: i < rating ? "#f5a623" : "#ddd" }}>
+      ★
+    </span>
   ));
 }
 
-function formatDate(date) {
-  const d = new Date(date);
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
   const today = new Date();
   if (d.toDateString() === today.toDateString()) return "Today's Chats";
-  return d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export default function Historypage({ conversations }) {
@@ -20,7 +26,6 @@ export default function Historypage({ conversations }) {
     ? conversations.filter((c) => c.rating === filterRating)
     : conversations;
 
-  // Group by date label
   const groups = {};
   filtered.forEach((conv) => {
     const label = formatDate(conv.date);
@@ -52,7 +57,13 @@ export default function Historypage({ conversations }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p style={{ textAlign: "center", color: "var(--text-secondary)", marginTop: 40 }}>
+        <p
+          style={{
+            textAlign: "center",
+            color: "var(--text-secondary)",
+            marginTop: 40,
+          }}
+        >
           No conversations found.
         </p>
       ) : (
@@ -68,7 +79,8 @@ export default function Historypage({ conversations }) {
                         width: 36,
                         height: 36,
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #7c6fcd, #5a4fa8)",
+                        background:
+                          "linear-gradient(135deg, #7c6fcd, #5a4fa8)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -86,9 +98,13 @@ export default function Historypage({ conversations }) {
                       <div className="history-msg-time">{msg.time}</div>
                       {msg.role === "ai" &&
                         conv.rating > 0 &&
-                        msg.id === conv.messages.filter((m) => m.role === "ai")[0]?.id && (
+                        msg.id ===
+                          conv.messages.filter((m) => m.role === "ai")[0]
+                            ?.id && (
                           <div className="history-feedback">
-                            <span className="history-stars">{renderStars(conv.rating)}</span>
+                            <span className="history-stars">
+                              {renderStars(conv.rating)}
+                            </span>
                             {conv.feedback && (
                               <div style={{ marginTop: 4 }}>
                                 <strong>Feedback</strong>: {conv.feedback}

@@ -33,8 +33,12 @@ export default function Feedbackmodal({ onClose, onSubmit }) {
           onChange={(e) => setFeedback(e.target.value)}
         />
         <div className="modal-actions">
-          <button className="btn-cancel" onClick={onClose}>Cancel</button>
-          <button className="btn-submit" onClick={handleSubmit}>Submit</button>
+          <button className="btn-cancel" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="btn-submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </div>

@@ -1,34 +1,35 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Chatpage from "./Chatpage";
 import Historypage from "./Historypage";
 
 function Layout({ conversations, setConversations }) {
-  const navigate = useNavigate();
   const location = useLocation();
   const isHistory = location.pathname === "/history";
 
   return (
     <div className="app-wrapper">
       <aside className="sidebar">
-        <button
-          className="sidebar-btn new-chat"
-          onClick={() => navigate("/")}
-        >
+        <Link to="/" className="sidebar-link new-chat-link">
           <span className="sidebar-icon">🤖</span>
           New Chat
-        </button>
-        <button
-          className={`sidebar-btn past-conv ${isHistory ? "active" : ""}`}
-          onClick={() => navigate("/history")}
-        >
+        </Link>
+        <Link to="/history" className="sidebar-link past-conv-link">
           Past Conversations
-        </button>
+        </Link>
       </aside>
+
       <div className="main-content">
-        <div className="top-bar">
-          🤖 Bot AI
-        </div>
+        <header className="top-bar">
+          <span>🤖</span> Bot AI
+        </header>
+
         <Routes>
           <Route
             path="/"
@@ -50,11 +51,32 @@ function Layout({ conversations, setConversations }) {
 }
 
 export default function App() {
-  const [conversations, setConversations] = useState([]);
+  const [conversations, setConversations] = useState(() => {
+    try {
+      const saved = localStorage.getItem("xbotai_conversations");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        "xbotai_conversations",
+        JSON.stringify(conversations)
+      );
+    } catch {
+      // ignore
+    }
+  }, [conversations]);
 
   return (
     <Router>
-      <Layout conversations={conversations} setConversations={setConversations} />
+      <Layout
+        conversations={conversations}
+        setConversations={setConversations}
+      />
     </Router>
   );
 }
