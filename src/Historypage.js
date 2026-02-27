@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function renderStars(rating) {
   return Array.from({ length: 5 }, (_, i) => (
     <span key={i} style={{ color: i < rating ? "#f5a623" : "#ddd" }}>
-      ★
+      *
     </span>
   ));
 }
@@ -51,7 +51,7 @@ export default function Historypage({ conversations }) {
             className={`filter-btn ${filterRating === r ? "active" : ""}`}
             onClick={() => setFilterRating(r)}
           >
-            {"★".repeat(r)}
+            {"*".repeat(r)}
           </button>
         ))}
       </div>
@@ -74,21 +74,8 @@ export default function Historypage({ conversations }) {
               <div key={conv.id} className="history-conversation">
                 {conv.messages.map((msg) => (
                   <div key={msg.id} className="history-message">
-                    <div
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: "50%",
-                        background:
-                          "linear-gradient(135deg, #7c6fcd, #5a4fa8)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 16,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {msg.role === "user" ? "🧑" : "🤖"}
+                    <div className="history-avatar">
+                      {msg.role === "user" ? "U" : "AI"}
                     </div>
                     <div>
                       <div className="history-msg-sender">
@@ -114,7 +101,7 @@ export default function Historypage({ conversations }) {
                         )}
                       {msg.reaction && (
                         <div style={{ marginTop: 4, fontSize: 14 }}>
-                          {msg.reaction === "like" ? "👍" : "👎"}
+                          {msg.reaction === "like" ? "(+1)" : "(-1)"}
                         </div>
                       )}
                     </div>

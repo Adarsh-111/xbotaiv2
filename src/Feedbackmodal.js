@@ -22,7 +22,7 @@ export default function Feedbackmodal({ onClose, onSubmit }) {
               onMouseEnter={() => setHover(star)}
               onMouseLeave={() => setHover(0)}
             >
-              ★
+              &#9733;
             </span>
           ))}
         </div>

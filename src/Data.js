@@ -12,8 +12,7 @@ export const sampleData = [
   {
     id: 3,
     question: "How are you?",
-    answer:
-      "As an AI Language Model, I don't have feelings, but I'm here to help!",
+    answer: "As an AI Language Model, I don't have feelings, but I'm here to help!",
   },
   {
     id: 4,
@@ -23,26 +22,22 @@ export const sampleData = [
   {
     id: 5,
     question: "Hi, what is the weather",
-    answer:
-      "As an AI Language Model, I don't have access to real-time weather data.",
+    answer: "As an AI Language Model, I don't have access to real-time weather data.",
   },
   {
     id: 6,
     question: "Hi, what is my location?",
-    answer:
-      "As an AI Language Model, I don't have access to your location data.",
+    answer: "As an AI Language Model, I don't have access to your location data.",
   },
   {
     id: 7,
     question: "Hi, what is the temperature",
-    answer:
-      "As an AI Language Model, I don't have access to real-time temperature data.",
+    answer: "As an AI Language Model, I don't have access to real-time temperature data.",
   },
   {
     id: 8,
     question: "Hi, how are you",
-    answer:
-      "As an AI Language Model, I don't have feelings, but I'm ready to assist you!",
+    answer: "As an AI Language Model, I don't have feelings, but I'm ready to assist you!",
   },
 ];
 

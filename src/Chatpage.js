@@ -102,7 +102,7 @@ export default function Chatpage({ conversations, setConversations }) {
         {messages.length === 0 ? (
           <div className="welcome-screen">
             <h2 className="welcome-title">How Can I Help You Today?</h2>
-            <div className="bot-avatar-large">🤖</div>
+            <div className="bot-avatar-large">AI</div>
             <div className="suggestion-cards">
               {SUGGESTIONS.map((s, i) => (
                 <div
@@ -126,7 +126,7 @@ export default function Chatpage({ conversations, setConversations }) {
                 }`}
               >
                 <div className="msg-avatar">
-                  {msg.role === "user" ? "🧑" : "🤖"}
+                  {msg.role === "user" ? "U" : "AI"}
                 </div>
                 <div className="msg-content">
                   <div className="msg-sender">
@@ -143,7 +143,7 @@ export default function Chatpage({ conversations, setConversations }) {
                         onClick={() => handleReaction(msg.id, "like")}
                         title="Like"
                       >
-                        👍
+                        +1
                       </button>
                       <button
                         className={`action-btn ${
@@ -152,7 +152,7 @@ export default function Chatpage({ conversations, setConversations }) {
                         onClick={() => handleReaction(msg.id, "dislike")}
                         title="Dislike"
                       >
-                        👎
+                        -1
                       </button>
                     </div>
                   )}

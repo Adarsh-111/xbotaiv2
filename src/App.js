@@ -4,20 +4,16 @@ import {
   Routes,
   Route,
   Link,
-  useLocation,
 } from "react-router-dom";
 import Chatpage from "./Chatpage";
 import Historypage from "./Historypage";
 
 function Layout({ conversations, setConversations }) {
-  const location = useLocation();
-  const isHistory = location.pathname === "/history";
-
   return (
     <div className="app-wrapper">
       <aside className="sidebar">
         <Link to="/" className="sidebar-link new-chat-link">
-          <span className="sidebar-icon">🤖</span>
+          <span className="sidebar-icon">AI</span>
           New Chat
         </Link>
         <Link to="/history" className="sidebar-link past-conv-link">
@@ -27,7 +23,7 @@ function Layout({ conversations, setConversations }) {
 
       <div className="main-content">
         <header className="top-bar">
-          <span>🤖</span> Bot AI
+          Bot AI
         </header>
 
         <Routes>
