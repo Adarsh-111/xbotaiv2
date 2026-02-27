@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getAIResponse } from "./Data";
-import Feedbackmodal from "./Feedbackmodal";
 
 const SUGGESTIONS = [
   {
@@ -32,7 +31,6 @@ export default function Chatpage({ conversations, setConversations }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [reactions, setReactions] = useState({});
-  const [showModal, setShowModal] = useState(false);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -69,12 +67,9 @@ export default function Chatpage({ conversations, setConversations }) {
     }));
   };
 
+  // Save immediately to localStorage without modal
   const handleSave = () => {
     if (messages.length === 0) return;
-    setShowModal(true);
-  };
-
-  const handleFeedbackSubmit = ({ rating, feedback }) => {
     const conv = {
       id: Date.now(),
       date: new Date().toISOString(),
@@ -82,13 +77,18 @@ export default function Chatpage({ conversations, setConversations }) {
         ...m,
         reaction: reactions[m.id] || null,
       })),
-      rating,
-      feedback,
+      rating: 0,
+      feedback: "",
     };
-    setConversations((prev) => [...prev, conv]);
+    setConversations((prev) => {
+      const updated = [...prev, conv];
+      try {
+        localStorage.setItem("xbotai_conversations", JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
     setMessages([]);
     setReactions({});
-    setShowModal(false);
   };
 
   const handleSubmit = (e) => {
@@ -179,13 +179,6 @@ export default function Chatpage({ conversations, setConversations }) {
           Save
         </button>
       </form>
-
-      {showModal && (
-        <Feedbackmodal
-          onClose={() => setShowModal(false)}
-          onSubmit={handleFeedbackSubmit}
-        />
-      )}
     </>
   );
 }

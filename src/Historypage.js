@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function renderStars(rating) {
   return Array.from({ length: 5 }, (_, i) => (
@@ -20,16 +20,8 @@ function formatDate(dateStr) {
 }
 
 export default function Historypage({ conversations }) {
-  const [selectedId, setSelectedId] = useState(null);
-
-  const selectedConv = selectedId
-    ? conversations.find((c) => c.id === selectedId)
-    : null;
-
-  const displayed = selectedConv ? [selectedConv] : conversations;
-
   const groups = {};
-  displayed.forEach((conv) => {
+  conversations.forEach((conv) => {
     const label = formatDate(conv.date);
     if (!groups[label]) groups[label] = [];
     groups[label].push(conv);
@@ -40,29 +32,19 @@ export default function Historypage({ conversations }) {
       <h2 className="history-title">Conversation History</h2>
 
       <div className="filter-bar">
-        <span className="filter-label">Conversations:</span>
-        <button
-          className={`filter-btn ${!selectedId ? "active" : ""}`}
-          onClick={() => setSelectedId(null)}
-        >
-          All
-        </button>
+        <span className="filter-label">Past Conversations</span>
         {conversations.map((conv) => {
           const firstUserMsg = conv.messages.find((m) => m.role === "user");
           const label = firstUserMsg ? firstUserMsg.text : "Chat";
           return (
-            <button
-              key={conv.id}
-              className={`filter-btn ${selectedId === conv.id ? "active" : ""}`}
-              onClick={() => setSelectedId(conv.id)}
-            >
+            <div key={conv.id} className="filter-conv-label">
               {label}
-            </button>
+            </div>
           );
         })}
       </div>
 
-      {displayed.length === 0 ? (
+      {conversations.length === 0 ? (
         <p
           style={{
             textAlign: "center",
@@ -83,11 +65,11 @@ export default function Historypage({ conversations }) {
                     <div className="history-avatar">
                       {msg.role === "user" ? "U" : "AI"}
                     </div>
-                    <div>
+                    <div className="history-msg-body">
                       <div className="history-msg-sender">
                         {msg.role === "user" ? "You" : <span>Soul AI</span>}
                       </div>
-                      <p className="history-msg-text">{msg.text}</p>
+                      <div className="history-msg-text">{msg.text}</div>
                       <div className="history-msg-time">{msg.time}</div>
                       {msg.role === "ai" &&
                         conv.rating > 0 &&
@@ -105,11 +87,6 @@ export default function Historypage({ conversations }) {
                             )}
                           </div>
                         )}
-                      {msg.reaction && (
-                        <div style={{ marginTop: 4, fontSize: 14 }}>
-                          {msg.reaction === "like" ? "(+1)" : "(-1)"}
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}

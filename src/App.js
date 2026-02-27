@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -55,17 +55,6 @@ export default function App() {
       return [];
     }
   });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        "xbotai_conversations",
-        JSON.stringify(conversations)
-      );
-    } catch {
-      // ignore
-    }
-  }, [conversations]);
 
   return (
     <Router>

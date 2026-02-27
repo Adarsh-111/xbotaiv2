@@ -46,7 +46,7 @@ export const sampleData = [
   },
   {
     id: 10,
-    question: "What are RESTful APIs?",
+    question: "Can you explain RESTful APIs?",
     answer: "RESTful APIs are designed around the REST (Representational State Transfer) architecture, which uses HTTP requests to access and manipulate data. They follow a stateless, client-server, cacheable communications protocol.",
   },
   {
